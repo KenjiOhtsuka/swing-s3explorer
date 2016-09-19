@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/s3explorer.iml" filepath="$PROJECT_DIR$/.idea/modules/s3explorer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/s3explorer_main.iml" filepath="$PROJECT_DIR$/.idea/modules/s3explorer_main.iml" group="s3explorer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/s3explorer_test.iml" filepath="$PROJECT_DIR$/.idea/modules/s3explorer_test.iml" group="s3explorer" />
+    </modules>
+  </component>
+</project>
