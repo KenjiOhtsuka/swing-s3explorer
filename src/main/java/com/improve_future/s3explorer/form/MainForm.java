@@ -25,6 +25,7 @@ public class MainForm {
     private JTable listTable;
     private DefaultTableModel tableModel;
     private JButton loadButton;
+    private JLabel locationLabel;
     private DefaultTreeModel treeModel;
     private DefaultMutableTreeNode rootNode;
 
@@ -41,6 +42,7 @@ public class MainForm {
         rootNode.removeAllChildren();
         treeModel.reload();
         tableModel = (DefaultTableModel) listTable.getModel();
+        tableModel.addColumn("");
         tableModel.addColumn("name");
         tableModel.addColumn("size");
         tableModel.addColumn("last modified");
@@ -91,35 +93,44 @@ public class MainForm {
                     case 1:
                         S3MutableTreeNode selectedNode =
                                 (S3MutableTreeNode) tree1.getLastSelectedPathComponent();
-                        String bucketName = "";
-                        //String prefix;
-                        if (selectedNode.getDepth() == 0) {
+                        String bucketName;
+                        String key;
+                        if (selectedNode.isBucket()) {
                             bucketName = (String) selectedNode.getUserObject();
-                            //prefix = "";
+                            key = "";
                         } else {
                             selectedNode.getPath();
+                            bucketName = selectedNode.getBucket().getName();
+                            key = selectedNode.getS3Key() + "/";
                         }
                         selectedNode.removeAllChildren();
 
                         tableModel.setRowCount(0);
-                        ObjectListing ol = awsS3Service.findAllObjects(bucketName, "");
+                        ObjectListing ol = awsS3Service.findAllObjects(bucketName, key);
                         for (String prefix : ol.getCommonPrefixes()) {
-                            String folderName = prefix.substring(0, prefix.length() - 1);
+                            String folderName = prefix.substring(key.length(), prefix.length() - 1);
                             S3MutableTreeNode node = new S3MutableTreeNode(folderName, true);
                             node.setBucket(selectedNode.getBucket());
+                            node.setS3Key(prefix.substring(0, prefix.length() - 1));
                             selectedNode.add(node);
 
-                            tableModel.addRow(new Object[] {folderName, null, null});
+                            tableModel.addRow(new Object[] {"d", folderName, null, null});
                         }
                         tree1.expandPath(new TreePath(selectedNode.getPath()));
 
                         for (S3ObjectSummary summary : ol.getObjectSummaries()) {
+                            String name = summary.getKey().substring(
+                                    summary.getKey().lastIndexOf(S3MutableTreeNode.delimiter) + 1);
                             tableModel.addRow(
                                     new Object[] {
-                                            summary.getKey(),
+                                            "f",
+                                            name,
                                             summary.getSize(),
                                             dateFormatter.format(summary.getLastModified())});
                         }
+
+                        locationLabel.setText(selectedNode.getBucket().getName() + ":" + selectedNode.getS3Key());
+
                         break;
                     default:
                         for (TreePath path : paths) {
