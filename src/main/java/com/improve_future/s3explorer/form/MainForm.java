@@ -6,10 +6,12 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.improve_future.s3explorer.base.tree.S3MutableTreeNode;
 import com.improve_future.s3explorer.config.AwsS3Config;
 import com.improve_future.s3explorer.service.AwsS3Service;
+import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.tree.*;
@@ -46,9 +48,15 @@ public class MainForm {
         tableModel.addColumn("name");
         tableModel.addColumn("size");
         tableModel.addColumn("last modified");
+        listTable.getColumnModel().getColumn(0).setWidth(10);
+        DefaultTableCellRenderer rightCellRenderer = new DefaultTableCellRenderer();
+        rightCellRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        listTable.getColumnModel().getColumn(2).setCellRenderer(rightCellRenderer);
+        DefaultTableCellHeaderRenderer rightHeaderRenderer = new DefaultTableCellHeaderRenderer();
+        rightHeaderRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        listTable.getColumnModel().getColumn(2).setHeaderRenderer(rightHeaderRenderer);
 
         //listTable.setTableHeader();
-
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 JFileChooser fileChooser = new JFileChooser();
