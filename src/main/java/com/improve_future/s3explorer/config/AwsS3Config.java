@@ -4,6 +4,7 @@ public class AwsS3Config {
     private String region;
     private String accessKeyId;
     private String secretAccessKey;
+    private String bucketName;
 
     public String getRegion() {
         return this.region;
@@ -17,10 +18,17 @@ public class AwsS3Config {
         return this.secretAccessKey;
     }
 
+    public String getBucketName() { return this.bucketName; }
+
     public AwsS3Config(String oneLineConfig) {
         String[] items = oneLineConfig.split(":");
         region = items[0];
         accessKeyId = items[1];
         secretAccessKey = items[2];
+        if (items.length > 3) bucketName = items[3];
+    }
+
+    public boolean isBucketSpecific() {
+        return bucketName != null;
     }
 }
