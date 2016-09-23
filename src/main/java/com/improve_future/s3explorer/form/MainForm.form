@@ -18,10 +18,10 @@
               <text value="load"/>
             </properties>
           </component>
-          <component id="aaa49" class="javax.swing.JLabel">
+          <component id="aaa49" class="javax.swing.JLabel" binding="locationLabel">
             <constraints/>
             <properties>
-              <text value="Label"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
