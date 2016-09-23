@@ -70,7 +70,11 @@ public class MainForm {
                             awsS3Config = new AwsS3Config(line);
                             awsS3Service = AwsS3Service.getInstance(awsS3Config);
                             rootNode.removeAllChildren();
-                            listAllBuckets();
+                            if (!awsS3Config.isBucketSpecific()) {
+                                listAllBuckets();
+                            } else {
+
+                            }
                         } catch (IOException ex) {
                             StringBuffer sb = new StringBuffer();
                             sb.
@@ -150,7 +154,7 @@ public class MainForm {
         });
     }
 
-    void listAllBuckets() {
+    private void listAllBuckets() {
         List<Bucket> buckets = awsS3Service.findAllBuckets();
         for (Bucket bucket : buckets) {
             S3MutableTreeNode node = new S3MutableTreeNode(bucket.getName(), true);
