@@ -18,7 +18,7 @@
               <text value="load"/>
             </properties>
           </component>
-          <component id="aaa49" class="javax.swing.JLabel" binding="locationLabel">
+          <component id="aaa49" class="javax.swing.JLabel" binding="keyLabel">
             <constraints/>
             <properties>
               <text value=""/>
@@ -28,7 +28,10 @@
       </toolbar>
       <splitpane id="d7b29">
         <constraints border-constraint="Center"/>
-        <properties/>
+        <properties>
+          <dividerLocation value="162"/>
+          <dividerSize value="5"/>
+        </properties>
         <border type="none"/>
         <children>
           <scrollpane id="a96bb">

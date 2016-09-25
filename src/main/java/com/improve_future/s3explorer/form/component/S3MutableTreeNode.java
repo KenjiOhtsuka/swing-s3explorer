@@ -1,4 +1,4 @@
-package com.improve_future.s3explorer.base.tree;
+package com.improve_future.s3explorer.form.component;
 
 import com.amazonaws.services.s3.model.Bucket;
 
@@ -66,4 +66,10 @@ public class S3MutableTreeNode extends DefaultMutableTreeNode implements TreeNod
         sb.append(this.getPrefix()).append(delimiter).append(this.getUserObject());
         return sb.toString();
     }
+
+    // uploading
+
+    // downloading
+
+    //
 }
